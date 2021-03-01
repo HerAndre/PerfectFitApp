@@ -38,7 +38,6 @@ public class FramePerfectFit extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-        getContentPane();
     }
 
 
