@@ -2,11 +2,15 @@ import user.User;
 import utlities.App;
 import utlities.Login;
 
-import javax.swing.*;
+import javax.swing.*;import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyVetoException;
+import java.beans.VetoableChangeListener;
 
-public class PerfectFitApp extends JDialog {
+public class PerfectFitMain extends JDialog {
     private JPanel contentPane;
     private JButton buttonCancel;
     private JPanel contentBody;
@@ -17,7 +21,6 @@ public class PerfectFitApp extends JDialog {
     private JButton registerButton;
     private JButton aboutUsButton;
     private JPanel login;
-    private JPanel loginHeader;
     private JButton loginBackButton;
     private JPanel loginBody;
     private JPanel loginForm;
@@ -28,9 +31,9 @@ public class PerfectFitApp extends JDialog {
     private JLabel passwordLabel;
     private JPanel app;
     private JPanel appHeader;
-    private JTextArea nameTextArea;
+    private JTextArea appNameText;
     private JPanel appBody;
-    private JButton logoutButton;
+    private JButton appBackButton;
     private JPanel appHome;
     private JButton appFootScanButton;
     private JButton appViewShoesButton;
@@ -38,16 +41,26 @@ public class PerfectFitApp extends JDialog {
     private JButton appRequestSocksButton;
     private JTextField registerText;
     private JPanel registerBody;
-    private JPanel registerHeader;
     private JButton registerBackButton;
     private JButton aboutUsBackButton;
-    private JPanel aboutUsHeader;
     private JPanel aboutUsBody;
     private JTextField aboutUsText;
+    private JPanel appProfile;
+    private JTextArea profileUsernameText;
+    private JTextArea profileAddressText;
+    private JTextArea profileEmailText;
+    private JTextArea profileNameText;
+    private JLabel profileUsernameLabel;
+    private JLabel profileNameLabel;
+    private JLabel profileAddressLabel;
+    private JLabel profileEmailLabel;
+    private JPanel contentHeader;
+    private JButton backButton;
     private final CardLayout contentCard = (CardLayout)contentBody.getLayout();
     private final CardLayout appCard = (CardLayout)appBody.getLayout();
+    private String currentPanelName;
 
-    public PerfectFitApp() {
+    public PerfectFitMain() {
         setContentPane(contentPane);
         setModal(true);
 
@@ -61,8 +74,36 @@ public class PerfectFitApp extends JDialog {
 
         // Load keyboard action listeners
         initKeyboardActions();
+
+        // Hide back button on initial load (nothing to back to)
+        backButton.setVisible(false);
+
         // Load button action listeners
-        initButtonListeners();
+        initListeners();
+    }
+
+    private void backButton(String currentPanelName) {
+        switch (currentPanelName) {
+            case "aboutUs":
+            case "register":
+            case "login":
+                contentCard.show(contentBody, "home");
+                setCurrentPanelName("home");
+                break;
+            case "appHome":
+                contentCard.show(contentBody, "login");
+                setCurrentPanelName("login");
+                break;
+            case "appProfile":
+            case "appSocks":
+            case "appShoes":
+            case "appScan":
+                appCard.show(appBody, "appHome");
+                setCurrentPanelName("appHome");
+                break;
+            default:
+                break;
+        }
     }
 
     private void onOK() {
@@ -81,7 +122,8 @@ public class PerfectFitApp extends JDialog {
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void initButtonListeners() {
+    private void initListeners() {
+
         loginButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -91,8 +133,10 @@ public class PerfectFitApp extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 contentCard.show(contentBody, "login");
+                setCurrentPanelName("login");
             }
         });
+
         registerButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -102,8 +146,10 @@ public class PerfectFitApp extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 contentCard.show(contentBody, "register");
+                setCurrentPanelName("register");
             }
         });
+
         aboutUsButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -113,45 +159,27 @@ public class PerfectFitApp extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 contentCard.show(contentBody, "aboutUs");
+                setCurrentPanelName("aboutUs");
+            }
+        });
+
+        appViewProfileButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e The event making the method run
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                appCard.show(appBody, "appProfile");
+                setCurrentPanelName("appProfile");
+                App.populateUserForms(new JTextArea[] {
+                        profileUsernameText, profileNameText, profileAddressText, profileEmailText
+                });
 
             }
         });
 
-        /*These back buttons are not the best implementation, too much repeated code.
-        * Using an ultimate back button lead to other issues due to CardLayout*/
-        loginBackButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e The event making the method run
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                contentCard.show(contentBody, "home");
-            }
-        });
-        registerBackButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e The event making the method run
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                contentCard.show(contentBody, "home");
-            }
-        });
-        aboutUsBackButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e The event making the method run
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                contentCard.show(contentBody, "home");
-            }
-        });
         loginSubmitButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -167,11 +195,13 @@ public class PerfectFitApp extends JDialog {
 
                 if (user != null) {
                     contentCard.show(contentBody, "app");
-                    App.populateUserForms(nameTextArea);
+                    setCurrentPanelName("app");
+                    App.populateUserForms(new JTextArea[] {appNameText});
                 } // TODO display login error
             }
         });
-        logoutButton.addActionListener(new ActionListener() {
+
+        backButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
              *
@@ -179,17 +209,53 @@ public class PerfectFitApp extends JDialog {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                contentCard.show(contentBody, "home");
-                User.getUser().nullUser();
+                backButton(getCurrentPanelName());
+            }
+        });
+
+        // Component Listeners
+        home.addComponentListener(new ComponentAdapter() {
+            /**
+             * Invoked when the component has been made visible.
+             *
+             * @param e The event making the method run
+             */
+            @Override
+            public void componentShown(ComponentEvent e) {
+                backButton.setVisible(false);
+                PerfectFitMain.super.revalidate();
+                super.componentShown(e);
+            }
+        });
+
+        home.addComponentListener(new ComponentAdapter() {
+            /**
+             * Invoked when the component has been made invisible.
+             *
+             * @param e The event making the method run
+             */
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                backButton.setVisible(true);
+                PerfectFitMain.super.revalidate();
+                super.componentHidden(e);
             }
         });
     }
 
     public static void main(String[] args) {
-        PerfectFitApp perfectFitApp = new PerfectFitApp();
-        perfectFitApp.pack();
-        perfectFitApp.setLocationRelativeTo(null);
-        perfectFitApp.setVisible(true);
+        PerfectFitMain perfectFitMain = new PerfectFitMain();
+        perfectFitMain.pack();
+        perfectFitMain.setLocationRelativeTo(null);
+        perfectFitMain.setVisible(true);
         System.exit(0);
+    }
+
+    public String getCurrentPanelName() {
+        return currentPanelName;
+    }
+
+    public void setCurrentPanelName(String currentPanelName) {
+        this.currentPanelName = currentPanelName;
     }
 }
