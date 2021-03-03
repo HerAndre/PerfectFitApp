@@ -83,6 +83,7 @@ public class PerfectFitMain extends JDialog {
     }
 
     private void backButton(String currentPanelName) {
+        System.out.println(currentPanelName);
         switch (currentPanelName) {
             case "aboutUs":
             case "register":
@@ -195,7 +196,7 @@ public class PerfectFitMain extends JDialog {
 
                 if (user != null) {
                     contentCard.show(contentBody, "app");
-                    setCurrentPanelName("app");
+                    setCurrentPanelName("appHome");
                     App.populateUserForms(new JTextArea[] {appNameText});
                 } // TODO display login error
             }
