@@ -22,6 +22,7 @@ public class App {
                 case "addressUsernameText":
                     area.setText(user.getUserName());
                     break;
+                case "socksAddressText":
                 case "profileAddressText":
                 case "addressAddressText":
                     area.setText(user.getUserAddress());

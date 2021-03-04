@@ -1,14 +1,9 @@
-import user.User;
 import utlities.App;
 import utlities.Login;
 
-import javax.swing.*;import javax.swing.event.AncestorListener;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyVetoException;
-import java.beans.VetoableChangeListener;
 
 public class PerfectFitMain extends JDialog {
     private JPanel contentPane;
@@ -56,6 +51,10 @@ public class PerfectFitMain extends JDialog {
     private JLabel profileEmailLabel;
     private JPanel contentHeader;
     private JButton backButton;
+    private JPanel appSocks;
+    private JTextArea socksAddressText;
+    private JTextArea socksConfirmText;
+    private JButton socksSubmitButton;
     private final CardLayout contentCard = (CardLayout)contentBody.getLayout();
     private final CardLayout appCard = (CardLayout)appBody.getLayout();
     private String currentPanelName;
@@ -80,10 +79,24 @@ public class PerfectFitMain extends JDialog {
 
         // Load button action listeners
         initListeners();
+        appRequestSocksButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                appCard.show(appBody, "appSocks");
+                setCurrentPanelName("appSocks");
+                App.populateUserForms(new JTextArea[] {
+                        socksAddressText
+                });
+            }
+        });
     }
 
     private void backButton(String currentPanelName) {
-        System.out.println(currentPanelName);
         switch (currentPanelName) {
             case "aboutUs":
             case "register":
@@ -244,19 +257,19 @@ public class PerfectFitMain extends JDialog {
         });
     }
 
-    public static void main(String[] args) {
-        PerfectFitMain perfectFitMain = new PerfectFitMain();
-        perfectFitMain.pack();
-        perfectFitMain.setLocationRelativeTo(null);
-        perfectFitMain.setVisible(true);
-        System.exit(0);
-    }
-
     public String getCurrentPanelName() {
         return currentPanelName;
     }
 
     public void setCurrentPanelName(String currentPanelName) {
         this.currentPanelName = currentPanelName;
+    }
+
+    public static void main(String[] args) {
+        PerfectFitMain perfectFitMain = new PerfectFitMain();
+        perfectFitMain.pack();
+        perfectFitMain.setLocationRelativeTo(null);
+        perfectFitMain.setVisible(true);
+        System.exit(0);
     }
 }
