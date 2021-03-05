@@ -6,8 +6,13 @@ import utlities.Login;
 import javax.swing.*;
 import java.awt.event.*;
 
-// Couldn't do extends PerfectFitMain bc it would recreate it and loop
+/*
+* Couldn't do extends PerfectFitMain bc it would recreate it and loop
+* Also couldn't create the buttons here because PerfectFitMain.form binds them to PerfectFitMain
+*
+* */
 public class Listeners {
+
 
     private final PerfectFitMain main;
 
@@ -171,7 +176,9 @@ public class Listeners {
 
     }
 
-
+    /*
+    * Hardcoded checks to determine previous page in application
+    */
     private void backButton(String currentPanelName) {
         switch (currentPanelName) {
             case "aboutUs":
