@@ -9,7 +9,7 @@ import java.awt.event.*;
 // Couldn't do extends PerfectFitMain bc it would recreate it and loop
 public class Listeners {
 
-    private PerfectFitMain main;
+    private final PerfectFitMain main;
 
     public Listeners(PerfectFitMain main) {
         this.main = main;
@@ -25,7 +25,7 @@ public class Listeners {
     private void initWindowListeners() {
         main.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                main.onCancel();
+                onCancel();
             }
         });
     }
@@ -71,7 +71,7 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 main.contentCard.show(main.contentBody, "login");
-                main.setCurrentPanelName("login");
+                main.currentPanelName = "login";
             }
         });
 
@@ -84,7 +84,7 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 main.contentCard.show(main.contentBody, "register");
-                main.setCurrentPanelName("register");
+                main.currentPanelName = "register";
             }
         });
 
@@ -97,7 +97,7 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 main.contentCard.show(main.contentBody, "aboutUs");
-                main.setCurrentPanelName("aboutUs");
+                main.currentPanelName = "aboutUs";
             }
         });
 
@@ -110,7 +110,7 @@ public class Listeners {
             @Override
             public void actionPerformed(ActionEvent e) {
                 main.appCard.show(main.appBody, "appProfile");
-                main.setCurrentPanelName("appProfile");
+                main.currentPanelName = "appProfile";
                 App.populateUserForms(new JTextArea[] {
                         main.profileUsernameText,
                         main.profileNameText,
@@ -136,7 +136,7 @@ public class Listeners {
 
                 if (user != null) {
                     main.contentCard.show(main.contentBody, "app");
-                    main.setCurrentPanelName("appHome");
+                    main.currentPanelName = "appHome";
                     App.populateUserForms(new JTextArea[] {main.appNameText});
                 } // TODO display login error
             }
@@ -157,12 +157,12 @@ public class Listeners {
             /**
              * Invoked when an action occurs.
              *
-             * @param e
+             * @param e The event making the method run
              */
             @Override
             public void actionPerformed(ActionEvent e) {
                 main.appCard.show(main.appBody, "appSocks");
-                main.setCurrentPanelName("appSocks");
+                main.currentPanelName = "appSocks";
                 App.populateUserForms(new JTextArea[] {
                         main.socksAddressText
                 });
@@ -178,21 +178,24 @@ public class Listeners {
             case "register":
             case "login":
                 main.contentCard.show(main.contentBody, "home");
-                main.setCurrentPanelName("home");
+                main.currentPanelName = "home";
                 break;
             case "appHome":
                 main.contentCard.show(main.contentBody, "login");
-                main.setCurrentPanelName("login");
+                main.currentPanelName = "login";
                 break;
             case "appProfile":
             case "appSocks":
             case "appShoes":
             case "appScan":
                 main.appCard.show(main.appBody, "appHome");
-                main.setCurrentPanelName("appHome");
+                main.currentPanelName = "appHome";
                 break;
             default:
                 break;
         }
+    }
+    private void onCancel() {
+        main.dispose();
     }
 }

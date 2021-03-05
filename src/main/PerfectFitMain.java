@@ -5,44 +5,47 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class PerfectFitMain extends JDialog {
-    JPanel contentPane;
-    private JButton buttonCancel;
-    JPanel contentBody;
-    JPanel home;
+    /*
+    * Form populates most of these variables
+    * If it's not found in the form then it probably is a
+    * useless declaration.
+    */
     private JPanel register;
     private JPanel aboutUs;
     private JPanel login;
     private JPanel loginBody;
     private JPanel loginForm;
-    JPasswordField loginPassword;
-    JTextField loginUsername;
-    private JLabel usernameLabel;
-    private JLabel passwordLabel;
     private JPanel app;
     private JPanel appHeader;
-    JTextArea appNameText;
-    JPanel appBody;
     private JPanel appHome;
-    private JButton appFootScanButton;
-    private JButton appViewShoesButton;
-    private JTextField registerText;
     private JPanel registerBody;
     private JPanel aboutUsBody;
-    private JTextField aboutUsText;
     private JPanel appProfile;
-    JTextArea profileUsernameText;
-    JTextArea profileAddressText;
-    JTextArea profileEmailText;
-    JTextArea profileNameText;
+    private JPanel appSocks;
+    private JPanel contentHeader;
     private JLabel profileUsernameLabel;
     private JLabel profileNameLabel;
     private JLabel profileAddressLabel;
     private JLabel profileEmailLabel;
-    private JPanel contentHeader;
-    private JPanel appSocks;
-    JTextArea socksAddressText;
+    private JLabel usernameLabel;
+    private JLabel passwordLabel;
+    private JTextField aboutUsText;
+    private JTextField registerText;
     private JTextArea socksConfirmText;
+
     // No access modifier = default; package private
+    JPanel home;
+    JPanel contentPane;
+    JPanel contentBody;
+    JPasswordField loginPassword;
+    JTextField loginUsername;
+    JTextArea appNameText;
+    JPanel appBody;
+    JTextArea profileUsernameText;
+    JTextArea profileAddressText;
+    JTextArea profileEmailText;
+    JTextArea profileNameText;
+    JTextArea socksAddressText;
     // Global button
     JButton backButton;
     // First screen buttons
@@ -54,6 +57,8 @@ public class PerfectFitMain extends JDialog {
     // Post login buttons
     JButton appViewProfileButton;
     JButton appRequestSocksButton;
+    JButton appFootScanButton; // TODO
+    JButton appViewShoesButton; // TODO
     // Socks screen buttons
     JButton socksSubmitButton;
 
@@ -62,10 +67,11 @@ public class PerfectFitMain extends JDialog {
     String currentPanelName;
 
     public PerfectFitMain() {
+        // JDialog setup
         setContentPane(contentPane);
         setModal(true);
 
-        // call onCancel() when cross is clicked
+        // Closing is handled by window Listener
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         // Load listeners
@@ -79,17 +85,12 @@ public class PerfectFitMain extends JDialog {
 
     }
 
-    private void onOK() {
-        // add your code here
-        dispose();
-    }
-
+    /*
+    * Used to handle closing of the gui,
+    * Currently used by clicking the X button and pressing ESC
+    */
     void onCancel() {
         dispose();
-    }
-
-    public void setCurrentPanelName(String currentPanelName) {
-        this.currentPanelName = currentPanelName;
     }
 
     public static void main(String[] args) {
@@ -99,4 +100,5 @@ public class PerfectFitMain extends JDialog {
         perfectFitMain.setVisible(true);
         System.exit(0);
     }
+
 }
