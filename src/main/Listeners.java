@@ -25,7 +25,7 @@ public class Listeners {
     private void initWindowListeners() {
         main.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                onCancel();
+                main.onCancel();
             }
         });
     }
@@ -194,8 +194,5 @@ public class Listeners {
             default:
                 break;
         }
-    }
-    private void onCancel() {
-        main.dispose();
     }
 }

@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 public class Actions {
 
-    private PerfectFitMain main;
+    private final PerfectFitMain main;
 
     public Actions(PerfectFitMain main) {
         this.main = main;
