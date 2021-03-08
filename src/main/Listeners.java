@@ -9,8 +9,7 @@ import java.awt.event.*;
 /*
 * Couldn't do extends PerfectFitMain bc it would recreate it and loop
 * Also couldn't create the buttons here because PerfectFitMain.form binds them to PerfectFitMain
-*
-* */
+*/
 public class Listeners {
 
 
@@ -77,6 +76,7 @@ public class Listeners {
             public void actionPerformed(ActionEvent e) {
                 main.contentCard.show(main.contentBody, "login");
                 main.currentPanelName = "login";
+                main.pack();
             }
         });
 
@@ -90,6 +90,7 @@ public class Listeners {
             public void actionPerformed(ActionEvent e) {
                 main.contentCard.show(main.contentBody, "register");
                 main.currentPanelName = "register";
+                main.pack();
             }
         });
 
@@ -103,6 +104,7 @@ public class Listeners {
             public void actionPerformed(ActionEvent e) {
                 main.contentCard.show(main.contentBody, "aboutUs");
                 main.currentPanelName = "aboutUs";
+                main.pack();
             }
         });
 
@@ -122,7 +124,7 @@ public class Listeners {
                         main.profileAddressText,
                         main.profileEmailText
                 });
-
+                main.pack();
             }
         });
 
@@ -144,6 +146,7 @@ public class Listeners {
                     main.currentPanelName = "appHome";
                     App.populateUserForms(new JTextArea[] {main.appNameText});
                 } // TODO display login error
+                main.pack();
             }
         });
 
@@ -186,10 +189,12 @@ public class Listeners {
             case "login":
                 main.contentCard.show(main.contentBody, "home");
                 main.currentPanelName = "home";
+                main.pack();
                 break;
             case "appHome":
                 main.contentCard.show(main.contentBody, "login");
                 main.currentPanelName = "login";
+                main.pack();
                 break;
             case "appProfile":
             case "appSocks":
@@ -197,6 +202,7 @@ public class Listeners {
             case "appScan":
                 main.appCard.show(main.appBody, "appHome");
                 main.currentPanelName = "appHome";
+                main.pack();
                 break;
             default:
                 break;
