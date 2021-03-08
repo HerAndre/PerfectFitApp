@@ -1,8 +1,10 @@
 package user;
 
+import size.Size;
+
 /*
 * Hard coded singleton user
-* TODO move to database users
+* TODO move to database users. Probably not though
 *  */
 public class User {
     private String userID;
@@ -12,7 +14,7 @@ public class User {
     private String userLName;
     private String userEmail;
     private String userAddress;
-    private String userSize;
+    private Size userSize;
     private static User user = null;
 
     private User() {
@@ -23,7 +25,8 @@ public class User {
         this.userLName = "Smith";
         this.userEmail = "bobsmith@email.com";
         this.userAddress = "Golden Gate Bridge, San Francisco, CA";
-        this.userSize = "Large";
+        // -1 so we don't run into actual shoes on a default user
+        this.userSize = new Size(-1,-1);
     }
 
     public static User getUser() {
@@ -61,7 +64,7 @@ public class User {
         return userAddress;
     }
 
-    public String getUserSize() {
+    public Size getUserSize() {
         return userSize;
     }
 

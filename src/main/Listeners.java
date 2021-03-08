@@ -33,7 +33,6 @@ public class Listeners {
             }
         });
     }
-
     private void initComponentListeners() {
         // Component Listeners
         main.home.addComponentListener(new ComponentAdapter() {
@@ -63,8 +62,9 @@ public class Listeners {
                 super.componentHidden(e);
             }
         });
-
     }
+
+    // Could be rewritten to reduce code redundancy
     private void initButtonListeners() {
         main.loginButton.addActionListener(new ActionListener() {
             /**
@@ -189,12 +189,10 @@ public class Listeners {
             case "login":
                 main.contentCard.show(main.contentBody, "home");
                 main.currentPanelName = "home";
-                main.pack();
                 break;
             case "appHome":
                 main.contentCard.show(main.contentBody, "login");
                 main.currentPanelName = "login";
-                main.pack();
                 break;
             case "appProfile":
             case "appSocks":
@@ -202,10 +200,11 @@ public class Listeners {
             case "appScan":
                 main.appCard.show(main.appBody, "appHome");
                 main.currentPanelName = "appHome";
-                main.pack();
                 break;
             default:
                 break;
         }
+        // Resize frame to fit content bc we might've switched the content.
+        main.pack();
     }
 }
