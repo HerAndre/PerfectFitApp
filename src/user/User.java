@@ -25,8 +25,8 @@ public class User {
         this.userLName = "Smith";
         this.userEmail = "bobsmith@email.com";
         this.userAddress = "Golden Gate Bridge, San Francisco, CA";
-        // -1 so we don't run into actual shoes on a default user
-        this.userSize = new Size(-1,-1);
+        // -1 so we don't run into actual shoes on a user who has no feet sizing
+        this.userSize = new Size(-1,-1, -1);
     }
 
     public static User getUser() {

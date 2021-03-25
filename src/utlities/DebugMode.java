@@ -1,5 +1,5 @@
 package utlities;
 
 public class DebugMode {
-    static final boolean DEBUG = true;
+    public static final boolean DEBUG = true;
 }

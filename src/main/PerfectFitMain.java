@@ -1,5 +1,7 @@
 package main;
 
+import shoes.ShoeDatabase;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -94,6 +96,7 @@ public class PerfectFitMain extends JDialog {
     }
 
     public static void main(String[] args) {
+        ShoeDatabase shoeDatabase = new ShoeDatabase();
         PerfectFitMain perfectFitMain = new PerfectFitMain();
         perfectFitMain.pack();
         perfectFitMain.setLocationRelativeTo(null);
