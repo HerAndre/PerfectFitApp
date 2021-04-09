@@ -1,10 +1,10 @@
 package main;
 
+import shoes.ShoeBuilder;
 import shoes.ShoeDatabase;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class PerfectFitMain extends JDialog {
     /*
@@ -96,7 +96,17 @@ public class PerfectFitMain extends JDialog {
     }
 
     public static void main(String[] args) {
-        ShoeDatabase shoeDatabase = new ShoeDatabase();
+        ShoeBuilder shoeBuilder = new ShoeBuilder();
+        shoeBuilder.createShoes("nike");
+        shoeBuilder.createShoes("adidas");
+        shoeBuilder.createShoes("puma");
+        shoeBuilder.createShoes("reebok");
+        shoeBuilder.createShoes("vans");
+        shoeBuilder.createShoes("converse");
+
+        // Only runs if debug mode is on
+        ShoeDatabase.getInstance().printShoeDataTable();
+
         PerfectFitMain perfectFitMain = new PerfectFitMain();
         perfectFitMain.pack();
         perfectFitMain.setLocationRelativeTo(null);
