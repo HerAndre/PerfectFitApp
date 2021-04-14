@@ -181,6 +181,7 @@ public class Listeners {
 
     /*
     * Hardcoded checks to determine previous page in application
+    * Could do a stack containing the paths, and pop the stack when the user hits back
     */
     private void backButton(String currentPanelName) {
         switch (currentPanelName) {
