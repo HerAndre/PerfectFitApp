@@ -3,8 +3,8 @@ package size;
 // The size used in shoes and feet. 
 public class Size {
 
-    private int length;
-    private int width;
+    private int length; // lets keep these 0-10
+    private int width; // lets keep these 0-10
     private int arch; // Low - 0; Medium - 1; High - 2; Extra-High - 3;
 
     public Size(int length, int width, int arch) {
@@ -41,6 +41,15 @@ public class Size {
     }
     public int getArch() {
         return arch;
+    }
+
+    public String stringifySize() {
+        return "Length: " +
+                length +
+                "\nWidth: " +
+                width +
+                "\nArch: " +
+                arch;
     }
 
 }

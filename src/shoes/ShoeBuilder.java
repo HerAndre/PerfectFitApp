@@ -8,16 +8,13 @@ import java.util.Random;
 public class ShoeBuilder  {
    int numberOfShoes = 10;
    Random rand = new Random();
-   int length = rand.nextInt(5);
-   int width = rand.nextInt(5);
-   int arch = rand.nextInt(3);
 
     public void createShoes(String type) {
         type = type.toLowerCase();
         Shoe shoe;
         for (int i = 0; numberOfShoes > i; i++) {
-            int length = rand.nextInt(5);
-            int width = rand.nextInt(5);
+            int length = rand.nextInt(10);
+            int width = rand.nextInt(10);
             int arch = rand.nextInt(3);
             switch(type) {
                 case "nike":

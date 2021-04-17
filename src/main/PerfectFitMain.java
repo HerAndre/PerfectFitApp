@@ -41,12 +41,16 @@ public class PerfectFitMain extends JDialog {
     JPanel contentBody;
     JPasswordField loginPassword;
     JTextField loginUsername;
-    JTextArea appNameText;
     JPanel appBody;
+    // Nav bar text (header)
+    JTextArea appUserNameText;
+    JTextArea appUserShoeText;
+    // Profile page text
     JTextArea profileUsernameText;
     JTextArea profileAddressText;
     JTextArea profileEmailText;
     JTextArea profileNameText;
+    // Sock page text
     JTextArea socksAddressText;
     // Global button
     JButton backButton;
@@ -59,10 +63,29 @@ public class PerfectFitMain extends JDialog {
     // Post login buttons
     JButton appViewProfileButton;
     JButton appRequestSocksButton;
-    JButton appFootScanButton; // TODO
-    JButton appViewShoesButton; // TODO
+    JButton appFootScanButton;
+    JButton appViewShoesButton;
     // Socks screen buttons
     JButton socksSubmitButton;
+    // Scanning foot section
+    JButton scanAutoButton;
+    JButton scanManualButton;
+    JButton scanSubmitButton;
+    // Foot scan bar
+    JProgressBar scanProgressBar;
+    // Foot scan button
+    JButton scanViewShoesButton;
+    private JPanel appScan;
+    private JPanel appScanManual;
+    // Manual size entry
+    JTextField manualArchText;
+    JTextField manualLengthText;
+    JTextField manualWidthText;
+    private JLabel lengthLabel;
+    private JLabel widthLabel;
+    private JLabel archLabel;
+    private JPanel appScanAuto;
+    private JPanel appShoes;
 
     final CardLayout contentCard = (CardLayout)contentBody.getLayout();
     final CardLayout appCard = (CardLayout)appBody.getLayout();
