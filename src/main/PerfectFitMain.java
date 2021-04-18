@@ -84,12 +84,22 @@ public class PerfectFitMain extends JDialog {
     private JLabel archLabel;
     private JPanel appScanAuto;
     private JPanel appShoes;
-    private JTextField registerUsernameText;
-    private JTextField registerPasswordText;
+    private JTextField registerPhoneText;
     private JTextField registerEmailText;
     private JButton registerSubmitButton;
     private JLabel registerEmailLabel;
-    private JLabel registerUsernameLabel;
+    private JLabel registerPhoneLabel;
+    private JLabel registerGenderLabel;
+    private JTextField registerFNameText;
+    private JLabel registerFNameLabel;
+    private JTextField registerLNameText;
+    private JTextField registerAddressText;
+    private JTextField registerUsernameText;
+    private JComboBox registerGenderSelect;
+    private JLabel registerLNameLabel;
+    private JLabel registerUsernameLabel1;
+    private JLabel registerAddressLabel;
+    private JTextField registerPasswordText;
     private JLabel registerPasswordLabel;
 
     final CardLayout contentCard = (CardLayout)contentBody.getLayout();
