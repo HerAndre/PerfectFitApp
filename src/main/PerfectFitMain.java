@@ -20,7 +20,6 @@ public class PerfectFitMain extends JDialog {
     private JPanel app;
     private JPanel appHeader;
     private JPanel appHome;
-    private JPanel registerBody;
     private JPanel aboutUsBody;
     private JPanel appProfile;
     private JPanel appSocks;
@@ -32,7 +31,6 @@ public class PerfectFitMain extends JDialog {
     private JLabel usernameLabel;
     private JLabel passwordLabel;
     private JTextField aboutUsText;
-    private JTextField registerText;
     private JTextArea socksConfirmText;
 
     // No access modifier = default; package private
@@ -86,6 +84,13 @@ public class PerfectFitMain extends JDialog {
     private JLabel archLabel;
     private JPanel appScanAuto;
     private JPanel appShoes;
+    private JTextField registerUsernameText;
+    private JTextField registerPasswordText;
+    private JTextField registerEmailText;
+    private JButton registerSubmitButton;
+    private JLabel registerEmailLabel;
+    private JLabel registerUsernameLabel;
+    private JLabel registerPasswordLabel;
 
     final CardLayout contentCard = (CardLayout)contentBody.getLayout();
     final CardLayout appCard = (CardLayout)appBody.getLayout();

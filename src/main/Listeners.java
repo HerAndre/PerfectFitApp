@@ -265,7 +265,7 @@ public class Listeners {
             public void actionPerformed(ActionEvent e) {
 
                 // Set user's size based on the text inputs on the manual input page
-                // Errors if the inputs are not ints
+                // Errors if the inputs are not castable to ints
                 try {
                     User.getUser().getUserSize()
                             .setWidth(Integer.parseInt(main.manualWidthText.getText()))
@@ -274,7 +274,9 @@ public class Listeners {
 
                     main.appUserShoeText.setText(User.getUser().getUserSize().stringifySize());
 
-                } catch (Error ignored) {}
+                } catch (Error ignored) {
+                    // TODO display error
+                }
 
                 main.appCard.show(main.appBody, "appHome");
                 main.currentPanelName = "appHome";
