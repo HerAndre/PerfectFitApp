@@ -4,11 +4,19 @@ import size.Size;
 
 import java.util.Random;
 
+/**
+ * Factory for generating shoes
+ */
 // Factory pattern
 public class ShoeBuilder  {
    int numberOfShoes = 500;
    Random rand = new Random();
 
+    /**
+     * Generates a number of shoes based on numberofShoes
+     * Inserts generated shoes to the database shoeDataTable
+     * @param type the brand name of the shoe to create
+     */
     public void createShoes(String type) {
         type = type.toLowerCase();
         Shoe shoe;
@@ -42,6 +50,11 @@ public class ShoeBuilder  {
             insertShoe(shoe);
         }
     }
+
+    /**
+     * Inserts a shoe into the shoeDataTable.
+     * @param shoe the shoe to be inserted into the shoeDataTable
+     */
     // Initializes the shoe database table or uses the existing one, inserts shoe into said database table
     private void insertShoe(Shoe shoe) {
         ShoeDatabase.getInstance().getShoeDataTable().add(shoe);

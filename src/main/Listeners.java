@@ -13,26 +13,36 @@ import java.awt.event.*;
 import java.util.Random;
 import java.util.TimerTask;
 
-/*
-* Couldn't do extends PerfectFitMain bc it would recreate it and loop
-* Also couldn't create the buttons here because PerfectFitMain.form binds them to PerfectFitMain
+/**
+* Contains all the logic for the application.
+* Contains all the button listeners. The buttons drive the application
+* Contains instance of the PerfectFitMain
 */
 public class Listeners {
 
-
     private final PerfectFitMain main;
 
+    /**
+     * Constructor for Listeners
+     * @param main the main instance containing all the form objects
+     */
     public Listeners(PerfectFitMain main) {
         this.main = main;
     }
 
+    /**
+     * Initialized all types of listeners
+     */
     public void initListeners() {
         initButtonListeners();
         initComponentListeners();
         initWindowListeners();
-
     }
 
+    /**
+     * Initializes all window listeners.
+     * Currently has one listener and it handled the window closing
+     */
     private void initWindowListeners() {
         main.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -40,10 +50,14 @@ public class Listeners {
             }
         });
     }
+    /**
+     * Initializes all component listeners.
+     */
     private void initComponentListeners() {
-        // Component Listeners
+
         main.home.addComponentListener(new ComponentAdapter() {
             /**
+             * Hides the back button if the home page is displayed
              * Invoked when the component has been made visible.
              *
              * @param e The event making the method run
@@ -58,6 +72,7 @@ public class Listeners {
 
         main.home.addComponentListener(new ComponentAdapter() {
             /**
+             * Displays the back button if the home page is displayed
              * Invoked when the component has been made invisible.
              *
              * @param e The event making the method run
@@ -71,10 +86,13 @@ public class Listeners {
         });
     }
 
-    // Could be rewritten to reduce code redundancy
+    /**
+     * Initializes all button listeners.
+     */
     private void initButtonListeners() {
         main.loginButton.addActionListener(new ActionListener() {
             /**
+             * Displays the login screen
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -89,6 +107,7 @@ public class Listeners {
 
         main.registerButton.addActionListener(new ActionListener() {
             /**
+             * Displays the register screen
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -103,6 +122,7 @@ public class Listeners {
 
         main.aboutUsButton.addActionListener(new ActionListener() {
             /**
+             * Displays the about us page
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -117,6 +137,8 @@ public class Listeners {
 
         main.appViewProfileButton.addActionListener(new ActionListener() {
             /**
+             * Displays the profile page
+             * Populates the text areas within the profile page with the user's data
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -137,6 +159,9 @@ public class Listeners {
 
         main.loginSubmitButton.addActionListener(new ActionListener() {
             /**
+             * Attempts to login using the text fields displayed on the application
+             * Validates whether the login information is valid
+             * Changes the application screen if the validation is successful
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -159,6 +184,7 @@ public class Listeners {
 
         main.backButton.addActionListener(new ActionListener() {
             /**
+             * Uses a helper function to navigate backwards in the application
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -168,8 +194,11 @@ public class Listeners {
                 backButton(main.currentPanelName);
             }
         });
+
         main.appRequestSocksButton.addActionListener(new ActionListener() {
             /**
+             * Displays the sock request page
+             * Populates the text areas within the sock request page with the user's data
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -185,6 +214,7 @@ public class Listeners {
         });
         main.appFootScanButton.addActionListener(new ActionListener() {
             /**
+             * Displays the scan page
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -193,13 +223,13 @@ public class Listeners {
             public void actionPerformed(ActionEvent e) {
                 main.appCard.show(main.appBody, "appScan");
                 main.currentPanelName = "appScan";
-                App.populateUserForms(new JTextArea[] {
-                        main.socksAddressText
-                });
             }
         });
+
         main.scanManualButton.addActionListener(new ActionListener() {
             /**
+             * Displays manual scan page (where the user inputs their own size values)
+             * Populates the fields with the user's size
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -216,6 +246,9 @@ public class Listeners {
         });
         main.scanAutoButton.addActionListener(new ActionListener() {
             /**
+             * Displays automatic scan page (where the user scans their foot)
+             * Creates a timer that increments the progress bar's values
+             * Resets the progress bar when the page is loaded to override any previous changes.
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -241,6 +274,7 @@ public class Listeners {
                         value[0] += 1;
                         main.scanProgressBar.setValue(value[0]);
 
+                        // Bar has reached 100%
                         if (value[0] >= 100) {
                             main.scanProgressBar.setForeground(new Color(55, 163, 0));
                             main.scanProgressBar.setString("Scan Complete");
@@ -252,8 +286,10 @@ public class Listeners {
                                 .setLength(new Random().nextInt(11))
                                 .setWidth(new Random().nextInt(11));
 
+                            // Outputs results to the scan result text area
                             main.scanResultsText.setText(User.getUser().getUserSize().stringifySize());
 
+                            // Stops timer
                             timer.cancel();
                             timer.purge();
                         }
@@ -263,6 +299,8 @@ public class Listeners {
         });
         main.scanSubmitButton.addActionListener(new ActionListener() {
             /**
+             * Attempts to submit using the text fields displayed on the application
+             * Populates the user's size with the new values if values are integer castable
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -278,6 +316,7 @@ public class Listeners {
                             .setLength(Integer.parseInt(main.manualLengthText.getText()))
                             .setArch(Integer.parseInt(main.manualArchText.getText()));
 
+                    // Outputs results to the scan result text area
                     main.manualResultsText.setText(User.getUser().getUserSize().stringifySize());
 
                 } catch (Error ignored) {
@@ -288,6 +327,10 @@ public class Listeners {
 
         main.appViewShoesButton.addActionListener(new ActionListener() {
             /**
+             * Displays shoes page
+             * Failfast if the user's size is unset
+             * Clears any previous selections made on the list and populates the list with shoes that match the size of the user
+             * Clicking on any shoe on the list will narrow down to the shoe, displaying the shoe view page
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -322,6 +365,10 @@ public class Listeners {
         });
         main.scanViewShoesButton.addActionListener(new ActionListener() {
             /**
+             * Displays shoes page
+             * Failfast if the user's size is unset
+             * Clears any previous selections made on the list and populates the list with shoes that match the size of the user
+             * Clicking on any shoe on the list will narrow down to the shoe, displaying the shoe view page
              * Invoked when an action occurs.
              *
              * @param e The event making the method run
@@ -355,7 +402,7 @@ public class Listeners {
             }
         });
     }
-    /*
+    /**
     * Hardcoded checks to determine previous page in application
     * Could do a stack containing the paths, and pop the stack when the user hits back
     */

@@ -3,10 +3,16 @@ package utlities;
 import user.User;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
+/**
+ * Helper functions for the application
+ */
 public class App {
 
+    /**
+     * Populates a textArea with specific information based on the case/switch
+     * @param textAreas textArea to populate
+     */
     public static void populateUserForms(JTextArea[] textAreas) {
         User user = User.getUser();
         // Iterate through the array and populate accordingly

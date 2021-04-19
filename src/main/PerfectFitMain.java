@@ -6,12 +6,11 @@ import shoes.ShoeDatabase;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The driver of the application.
+ * Displays the GUI and populates the database
+ */
 public class PerfectFitMain extends JDialog {
-    /*
-    * Form populates most of these variables
-    * If it's not found in the form then it probably is a
-    * useless declaration.
-    */
     private JPanel register;
     private JPanel aboutUs;
     private JPanel login;
@@ -135,7 +134,7 @@ public class PerfectFitMain extends JDialog {
 
     }
 
-    /*
+    /**
     * Used to handle closing of the gui,
     * Currently used by clicking the X button and pressing ESC
     */
