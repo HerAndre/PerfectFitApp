@@ -79,6 +79,11 @@ public class PerfectFitMain extends JDialog {
     JTextField manualArchText;
     JTextField manualLengthText;
     JTextField manualWidthText;
+    // Scan results text
+    JTextField scanResultsText;
+    // View Shoes list
+    JList shoesShoeList;
+
     private JLabel lengthLabel;
     private JLabel widthLabel;
     private JLabel archLabel;
@@ -101,6 +106,7 @@ public class PerfectFitMain extends JDialog {
     private JLabel registerAddressLabel;
     private JTextField registerPasswordText;
     private JLabel registerPasswordLabel;
+    JTable shoesShoeTable;
 
     final CardLayout contentCard = (CardLayout)contentBody.getLayout();
     final CardLayout appCard = (CardLayout)appBody.getLayout();

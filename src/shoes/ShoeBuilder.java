@@ -6,7 +6,7 @@ import java.util.Random;
 
 // Factory pattern
 public class ShoeBuilder  {
-   int numberOfShoes = 10;
+   int numberOfShoes = 500;
    Random rand = new Random();
 
     public void createShoes(String type) {

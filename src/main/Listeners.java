@@ -1,5 +1,7 @@
 package main;
 
+import shoes.Shoe;
+import shoes.ShoeDatabase;
 import user.User;
 import utlities.App;
 import utlities.Login;
@@ -221,6 +223,7 @@ public class Listeners {
                 main.appCard.show(main.appBody, "appScanAuto");
                 main.currentPanelName = "appScanAuto";
                 main.scanProgressBar.setValue(0);
+                main.scanViewShoesButton.setEnabled(false);
                 main.scanProgressBar.setForeground(new Color(60, 63, 65));
                 final int[] value = {main.scanProgressBar.getValue()};
 
@@ -246,7 +249,7 @@ public class Listeners {
                                 .setLength(new Random().nextInt(10))
                                 .setWidth(new Random().nextInt(10));
 
-                            main.appUserShoeText.setText(User.getUser().getUserSize().stringifySize());
+                            main.scanResultsText.setText(User.getUser().getUserSize().stringifySize());
 
                             timer.cancel();
                             timer.purge();
@@ -282,6 +285,35 @@ public class Listeners {
                 main.currentPanelName = "appHome";
             }
         });
+
+        main.appViewShoesButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e The event making the method run
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.appCard.show(main.appBody, "appShoes");
+                main.currentPanelName = "appShoes";
+                DefaultListModel<Shoe> listModel = new DefaultListModel<>();
+                ShoeDatabase.getInstance().getShoeDataTable().forEach(shoe -> {
+                    if (shoe.getSize().isEqual(User.getUser().getUserSize())) {
+                        listModel.addElement(shoe);
+                    }
+                });
+                main.shoesShoeList.setModel(listModel);
+                main.shoesShoeList.addListSelectionListener(event -> {
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    int minIndex = lsm.getMinSelectionIndex();
+                    int maxIndex = lsm.getMaxSelectionIndex();
+
+                    main.appCard.show(main.appBody, "appShoesView");
+                    main.currentPanelName = "appShoesView";
+                });
+            }
+        });
+
 
     }
     /*

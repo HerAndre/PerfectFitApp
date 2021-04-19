@@ -13,6 +13,10 @@ public class Size {
         this.arch = arch;
     }
 
+    // Stringifies the sizes and checks if they are equal
+    public boolean isEqual(Size size) {
+        return this.getWidth() == size.getWidth() && this.getLength() == size.getLength() && this.getArch() == size.getArch();
+    }
 
     // Returns itself for chaining assignment. Ex: new Size().setWidth(5).setLength(2);
     public Size setLength(int length) {

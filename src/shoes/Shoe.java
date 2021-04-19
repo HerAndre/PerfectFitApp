@@ -16,11 +16,11 @@ public class Shoe {
         this.size = size;
     }
 
-    String getBrand() {
+    public String getBrand() {
         return this.brand;
     }
 
-    Size getSize() {
+    public Size getSize() {
         return this.size;
     }
 }
