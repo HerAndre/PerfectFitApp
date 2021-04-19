@@ -248,9 +248,9 @@ public class Listeners {
 
                             // Generate a random size for the user
                             User.getUser().getUserSize()
-                                .setArch(new Random().nextInt(3))
-                                .setLength(new Random().nextInt(10))
-                                .setWidth(new Random().nextInt(10));
+                                .setArch(new Random().nextInt(4))
+                                .setLength(new Random().nextInt(11))
+                                .setWidth(new Random().nextInt(11));
 
                             main.scanResultsText.setText(User.getUser().getUserSize().stringifySize());
 
@@ -309,6 +309,7 @@ public class Listeners {
                 });
                 // Set the listModel onto the shoeList
                 main.shoesShoeList.setModel(listModel);
+                main.pack();
                 main.shoesShoeList.addListSelectionListener(event -> {
                     DefaultListModel<String> shoeModel = new DefaultListModel<>();
                     String selectedValue = (String) main.shoesShoeList.getSelectedValue();
@@ -342,6 +343,7 @@ public class Listeners {
                 });
                 // Set the listModel onto the shoeList
                 main.shoesShoeList.setModel(listModel);
+                main.pack();
                 main.shoesShoeList.addListSelectionListener(event -> {
                     DefaultListModel<String> shoeModel = new DefaultListModel<>();
                     String selectedValue = (String) main.shoesShoeList.getSelectedValue();
