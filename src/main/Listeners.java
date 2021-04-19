@@ -2,6 +2,7 @@ package main;
 
 import shoes.Shoe;
 import shoes.ShoeDatabase;
+import size.Size;
 import user.User;
 import utlities.App;
 import utlities.Login;
@@ -210,6 +211,7 @@ public class Listeners {
                 main.manualLengthText.setText(String.valueOf(User.getUser().getUserSize().getLength()));
                 main.manualWidthText.setText(String.valueOf(User.getUser().getUserSize().getWidth()));
                 main.manualArchText.setText(String.valueOf(User.getUser().getUserSize().getArch()));
+                main.manualResultsText.setText(User.getUser().getUserSize().stringifySize());
             }
         });
         main.scanAutoButton.addActionListener(new ActionListener() {
@@ -225,6 +227,7 @@ public class Listeners {
                 main.scanProgressBar.setValue(0);
                 main.scanViewShoesButton.setEnabled(false);
                 main.scanProgressBar.setForeground(new Color(60, 63, 65));
+                main.scanResultsText.setText(User.getUser().getUserSize().stringifySize());
                 final int[] value = {main.scanProgressBar.getValue()};
 
                 java.util.Timer timer = new java.util.Timer();
@@ -275,14 +278,11 @@ public class Listeners {
                             .setLength(Integer.parseInt(main.manualLengthText.getText()))
                             .setArch(Integer.parseInt(main.manualArchText.getText()));
 
-                    main.appUserShoeText.setText(User.getUser().getUserSize().stringifySize());
+                    main.manualResultsText.setText(User.getUser().getUserSize().stringifySize());
 
                 } catch (Error ignored) {
                     // TODO display error
                 }
-
-                main.appCard.show(main.appBody, "appHome");
-                main.currentPanelName = "appHome";
             }
         });
 
@@ -294,27 +294,64 @@ public class Listeners {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                // If size isn't set yet don't continue.
+                if (User.getUser().getUserSize().isEqual(new Size(-1, -1, -1))) return;
+
+                main.shoesShoeList.clearSelection();
                 main.appCard.show(main.appBody, "appShoes");
                 main.currentPanelName = "appShoes";
-                DefaultListModel<Shoe> listModel = new DefaultListModel<>();
+                // Populate a listModel with shoes that match
+                DefaultListModel<String> listModel = new DefaultListModel<>();
                 ShoeDatabase.getInstance().getShoeDataTable().forEach(shoe -> {
                     if (shoe.getSize().isEqual(User.getUser().getUserSize())) {
-                        listModel.addElement(shoe);
+                        listModel.addElement(shoe.stringifyShoe());
                     }
                 });
+                // Set the listModel onto the shoeList
                 main.shoesShoeList.setModel(listModel);
                 main.shoesShoeList.addListSelectionListener(event -> {
-                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    int minIndex = lsm.getMinSelectionIndex();
-                    int maxIndex = lsm.getMaxSelectionIndex();
-
+                    DefaultListModel<String> shoeModel = new DefaultListModel<>();
+                    String selectedValue = (String) main.shoesShoeList.getSelectedValue();
+                    shoeModel.addElement(selectedValue);
                     main.appCard.show(main.appBody, "appShoesView");
                     main.currentPanelName = "appShoesView";
+                    main.shoesViewList.setModel(shoeModel);
                 });
             }
         });
+        main.scanViewShoesButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e The event making the method run
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // If size isn't set yet don't continue.
+                if (User.getUser().getUserSize().isEqual(new Size(-1, -1, -1))) return;
 
-
+                main.shoesShoeList.clearSelection();
+                main.appCard.show(main.appBody, "appShoes");
+                main.currentPanelName = "appShoes";
+                // Populate a listModel with shoes that match
+                DefaultListModel<String> listModel = new DefaultListModel<>();
+                ShoeDatabase.getInstance().getShoeDataTable().forEach(shoe -> {
+                    if (shoe.getSize().isEqual(User.getUser().getUserSize())) {
+                        listModel.addElement(shoe.stringifyShoe());
+                    }
+                });
+                // Set the listModel onto the shoeList
+                main.shoesShoeList.setModel(listModel);
+                main.shoesShoeList.addListSelectionListener(event -> {
+                    DefaultListModel<String> shoeModel = new DefaultListModel<>();
+                    String selectedValue = (String) main.shoesShoeList.getSelectedValue();
+                    shoeModel.addElement(selectedValue);
+                    main.appCard.show(main.appBody, "appShoesView");
+                    main.currentPanelName = "appShoesView";
+                    main.shoesViewList.setModel(shoeModel);
+                });
+            }
+        });
     }
     /*
     * Hardcoded checks to determine previous page in application
@@ -339,10 +376,15 @@ public class Listeners {
                 main.appCard.show(main.appBody, "appHome");
                 main.currentPanelName = "appHome";
                 break;
+            case "appShoesView":
+                main.appCard.show(main.appBody, "appShoes");
+                main.currentPanelName = "appShoes";
+                break;
             case "appScanAuto":
             case "appScanManual":
                 main.appCard.show(main.appBody, "appScan");
                 main.currentPanelName = "appScan";
+                break;
             default:
                 break;
         }

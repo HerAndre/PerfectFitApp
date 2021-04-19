@@ -50,9 +50,9 @@ public class Size {
     public String stringifySize() {
         return "Length: " +
                 length +
-                "\nWidth: " +
+                "\n Width: " +
                 width +
-                "\nArch: " +
+                "\n Arch: " +
                 arch;
     }
 

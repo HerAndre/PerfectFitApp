@@ -13,9 +13,9 @@ public class ShoeBuilder  {
         type = type.toLowerCase();
         Shoe shoe;
         for (int i = 0; numberOfShoes > i; i++) {
-            int length = rand.nextInt(10);
-            int width = rand.nextInt(10);
-            int arch = rand.nextInt(3);
+            int length = rand.nextInt(11);
+            int width = rand.nextInt(11);
+            int arch = rand.nextInt(4);
             switch(type) {
                 case "nike":
                     shoe = new ShoeNike(new Size(length, width, arch));

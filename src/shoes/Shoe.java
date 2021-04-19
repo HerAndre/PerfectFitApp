@@ -16,6 +16,15 @@ public class Shoe {
         this.size = size;
     }
 
+    public String stringifyShoe() {
+        Size shoeSize = getSize();
+
+        return "Brand: " +
+                getBrand() +
+                "; Size: " +
+                shoeSize.stringifySize();
+    }
+
     public String getBrand() {
         return this.brand;
     }
